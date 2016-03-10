@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.hjc.scripttool.R;
 import com.hjc.scripttool.view.ResultInfoView;
 import com.hjc.scriptutil.MRInfo;
+import com.hjc.util.Constants;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public class ResultListActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.monkeyresultlist);
         resultInfos = new ArrayList<>();
-        File file = new File("/sdcard/Result/Monkey/");
+        File file = new File(Constants.MONKEY_PATH);
         String[] historyList = file.list();
         if(historyList != null){
             for(String history : historyList){
@@ -44,9 +46,6 @@ public class ResultListActivity extends Activity{
         else{
             Toast.makeText(getApplicationContext(), "not find result", Toast.LENGTH_SHORT).show();
         }
-
-
-
 
     }
 }

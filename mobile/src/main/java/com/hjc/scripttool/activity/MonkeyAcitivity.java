@@ -209,7 +209,7 @@ public class MonkeyAcitivity extends Activity {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
                     String str = format.format(date);
 
-                    file = new File("/sdcard/Result/Monkey/" + str + "-" + packagename.getText().toString());
+                    file = new File(Constants.MONKEY_PATH + str + "-" + packagename.getText().toString());
                     if (!file.exists()) {
                         file.mkdirs();
                     }

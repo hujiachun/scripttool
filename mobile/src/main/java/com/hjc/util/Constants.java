@@ -24,6 +24,7 @@ public class Constants {
     public static final String PERFORMANCE_LIST =  "history_list";
     public static final String PERFORMANCE_DATA =  "performance_data";
     public static final String PERFORMANCE_PATH =  "/sdcard/Result/performance/";
+    public static final String MONKEY_PATH =  "/sdcard/Result/Monkey/";
     public static final String CASE_NAME =  "NAME";
     public static final String CASE_LIST =  "cese_list";
     public static final String CSV =  ".csv";
