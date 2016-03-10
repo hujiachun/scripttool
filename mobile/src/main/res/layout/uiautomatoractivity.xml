@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".activity.UiautomatorActivity"
+    android:background="#FFEFDB">
+
+
+
+    <TextView
+        android:textStyle="bold"
+        android:text="UIAUTOMATOR TEST"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:background="#FFEFDB"
+            android:textSize="15dp"
+            android:id="@+id/button1"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/choosejar" />
+
+        <EditText
+            android:hint="please enter jar"
+            android:editable="false"
+            android:singleLine="true"
+            android:textSize="10dp"
+            android:id="@+id/jar_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:background="#FFEFDB"
+            android:textSize="15dp"
+            android:id="@+id/button2"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/chooseclass" />
+
+        <EditText
+            android:hint="please enter class"
+            android:editable="false"
+            android:singleLine="true"
+            android:textSize="10dp"
+            android:id="@+id/class_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:background="#FFEFDB"
+            android:textSize="15dp"
+            android:id="@+id/button3"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/choosemethod" />
+
+        <EditText
+            android:hint="please enter testcase"
+            android:editable="false"
+            android:singleLine="true"
+            android:textSize="10dp"
+            android:id="@+id/method_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <Button
+            android:textSize="20dp"
+            android:background="#FFEFDB"
+            android:id="@+id/button4"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="run"/>
+
+        <Button
+            android:textSize="20dp"
+            android:background="#FFEFDB"
+            android:id="@+id/button5"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="stop"/>
+
+        <Button
+            android:textSize="20dp"
+            android:background="#FFEFDB"
+            android:id="@+id/button6"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="History"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:textColor="#FF000000"
+        android:textSize="12dp"
+        android:layout_marginLeft="3dp"
+        android:gravity="center"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/method_index"
+        />
+    <TextView
+        android:textSize="13dp"
+        android:id="@+id/methodname"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:id="@+id/review"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        >
+        <ImageView
+
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/reviewPic"
+            android:src="@drawable/search"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+
+        <ImageView
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/testcase_state"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/methodcheck"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical"
+        />
+
+</LinearLayout>

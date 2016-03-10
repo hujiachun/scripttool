@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lecho.lib.hellocharts.samples.LineChartActivity" >
+
+    <item
+        android:id="@+id/ram"
+        android:title="Memory"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/cpu"
+        android:title="CPU"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/battery"
+        android:title="Battery"
+        app:showAsAction="never"/>
+
+
+
+</menu>

@@ -1,0 +1,175 @@
+package com.hjc.performance;
+
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Debug;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * operate memory information
+ * 
+ * @author andrewleo
+ */
+public class MemoryInfo {
+
+
+
+	private static Process process;
+
+	/**
+	 * get total memory of certain device.
+	 * 
+	 * @return total memory of device
+	 */
+	public long getTotalMemory() {
+		String memInfoPath = "/proc/meminfo";
+		String readTemp = "";
+		String memTotal = "";
+		long memory = 0;
+		try {
+			FileReader fr = new FileReader(memInfoPath);
+			BufferedReader localBufferedReader = new BufferedReader(fr, 8192);
+			while ((readTemp = localBufferedReader.readLine()) != null) {
+				if (readTemp.contains("MemTotal")) {
+					String[] total = readTemp.split(":");
+					memTotal = total[1].trim();
+				}
+			}
+			localBufferedReader.close();
+			String[] memKb = memTotal.split(" ");
+			memTotal = memKb[0].trim();
+
+			memory = Long.parseLong(memTotal);
+		} catch (IOException e) {
+
+		}
+		return memory;
+	}
+
+	/**
+	 * get free memory.
+	 * 
+	 * @return free memory of device
+	 * 
+	 */
+	public long getFreeMemorySize(Context context) {
+		ActivityManager.MemoryInfo outInfo = new ActivityManager.MemoryInfo();
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		am.getMemoryInfo(outInfo);
+		long avaliMem = outInfo.availMem;
+		return avaliMem / 1024;
+	}
+
+	/**
+	 * get the memory of process with certain pid.
+	 * 
+	 * @param pid
+	 *            pid of process
+	 * @param context
+	 *            context of certain activity
+	 * @return memory usage of certain process
+	 */
+	public int getPidMemorySize(int pid, Context context) {
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		int[] myMempid = new int[] { pid };
+		Debug.MemoryInfo[] memoryInfo = am.getProcessMemoryInfo(myMempid);
+		memoryInfo[0].getTotalSharedDirty();
+		int memSize = memoryInfo[0].getTotalPss();
+		return memSize;
+	}
+
+	/**
+	 * get the sdk version of phone.
+	 * 
+	 * @return sdk version
+	 */
+	public String getSDKVersion() {
+		return android.os.Build.VERSION.RELEASE;
+	}
+
+	/**
+	 * get phone type.
+	 * 
+	 * @return phone type
+	 */
+	public String getPhoneType() {
+		return android.os.Build.MODEL;
+	}
+
+	/**
+	 * get app heap size, it is more importance than total memory
+	 * 
+	 * @return heap size
+	 */
+	public String[][] getHeapSize(int pid, Context context) {
+		String[][] heapData = parseMeminfo(pid);
+		return heapData;
+	}
+
+	/**
+	 * dumpsys meminfo, and parse the result to get native and heap data
+	 * 
+	 * @param pid
+	 *            process id
+	 * @return native and heap data
+	 */
+	public String[][] parseMeminfo(int pid) {
+
+		boolean infoStart = false;
+		// [][],00:native heap size,01:native heap alloc;10: dalvik heap
+		// size,11: dalvik heap alloc
+		String[][] heapData = new String[2][2];
+		try {
+			Runtime runtime = Runtime.getRuntime();
+
+			process = runtime.exec("su");
+			DataOutputStream os = new DataOutputStream(process.getOutputStream());
+			os.writeBytes("dumpsys meminfo " + pid + "\n");
+			os.writeBytes("exit\n");
+			os.flush();
+
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line = "";
+
+			while ((line = bufferedReader.readLine()) != null) {
+
+				line = line.trim();
+				if (line.contains("Permission Denial")) {
+					break;
+				} else {
+					// 当读取到MEMINFO in pid 这一行时，下一行就是需要获取的数据
+					if (line.contains("MEMINFO in pid")) {
+						infoStart = true;
+					} else if (infoStart) {
+						String[] lineItems = line.split("\\s+");//把字符串分割成数组
+						int length = lineItems.length;
+						if (line.startsWith("size")) {
+							heapData[0][0] = lineItems[1];
+							heapData[1][0] = lineItems[2];
+						} else if (line.startsWith("allocated")) {
+							heapData[0][1] = lineItems[1];
+							heapData[1][1] = lineItems[2];
+							break;
+						} else if (line.startsWith("Native")) {
+							heapData[0][0] = lineItems[length-3];
+							heapData[0][1] = lineItems[length-2];
+						} else if (line.startsWith("Dalvik")) {
+							heapData[1][0] = lineItems[length-3];
+							heapData[1][1] = lineItems[length-2];
+							break;
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return heapData;
+	}
+}

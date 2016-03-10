@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFEFDB"
+    android:orientation="vertical" >
+
+    <TextView
+        android:textStyle="bold"
+        android:text="MONKEY TEST"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:text="Commond:"
+        android:textSize="8dp"
+        android:layout_height="50dp"
+        android:id="@+id/command"
+        />
+
+   <LinearLayout
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="@string/touch"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+           <EditText
+               android:text="50"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/touch"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+           <TextView
+               android:text="@string/motion"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="15"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/motion"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content">
+
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="@string/trackball"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="0"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/trackball"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+           <TextView
+               android:text="@string/nav"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/nav"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="@string/syskeys"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="15"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/syskeys"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+           <TextView
+               android:text="@string/appswitch"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="2"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/appswitch"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="@string/anyevent"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="5"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/anyevent"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+           <TextView
+               android:text="@string/majornav"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:text="12"
+               android:maxLength="2"
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/majornav"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:text="@string/seed"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:numeric="integer"
+            android:textSize="10dp"
+            android:id="@+id/seed"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="throttle"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:numeric="integer"
+            android:textSize="10dp"
+            android:id="@+id/throttle"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           >
+
+           <TextView
+               android:text="@string/runtime"
+               android:layout_width="102dp"
+               android:layout_height="wrap_content" />
+
+           <EditText
+               android:numeric="integer"
+               android:textSize="10dp"
+               android:id="@+id/count"
+               android:layout_width="150dp"
+               android:layout_height="wrap_content" />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+
+           >
+
+         <CheckBox
+             android:id="@+id/crashes"
+             android:layout_width="115dp"
+             android:layout_height="wrap_content"
+             android:text="@string/crashes"/>
+
+           <CheckBox
+
+               android:id="@+id/timeouts"
+               android:layout_width="123dp"
+               android:layout_height="wrap_content"
+               android:text="@string/timeouts"/>
+
+           <CheckBox
+
+               android:id="@+id/kill"
+               android:layout_width="105dp"
+               android:layout_height="wrap_content"
+               android:text="kill-proces"/>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="35dp"
+           android:gravity="center"
+           android:background="#FFEFDB"
+           >
+
+
+           <Button
+               android:background="#FFEFDB"
+               android:layout_width="180dp"
+               android:layout_height="wrap_content"
+               android:id="@+id/installSystem"
+               android:text="system app"
+               android:onClick="installPackageSystem"/>
+
+           <Button
+               android:background="#FFEFDB"
+               android:layout_width="200dp"
+               android:layout_height="wrap_content"
+               android:id="@+id/btn_package"
+               android:text="third-party app"/>
+
+
+       </LinearLayout>
+       <EditText
+           android:editable="false"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/packagename"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFEFDB"
+        >
+
+
+        <Button
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="#FFEFDB"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn1"
+            android:text="confirm"/>
+        <Button
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="#FFEFDB"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn2"
+            android:text="run"/>
+        <Button
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="#FFEFDB"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn3"
+            android:text="History" />
+    </LinearLayout  >
+
+
+</LinearLayout>

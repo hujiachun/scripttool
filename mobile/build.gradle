@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+    defaultConfig {
+        applicationId "com.hjc.scripttool"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.com.hjc.scripttool.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    //    testCompile 'junit:junit:4.12'
+    //    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
+    //    compile files('libs/uiautomator-v18-2.1.1-release-no-dep.jar')
+    //    compile files('libs/exposed-instrumentation-api-publish-0.3-release-no-dep.jar')
+    //    compile files('libs/runner-0.3-release-no-dep.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    //    compile files('libs/uiautomator.jar')
+    //    androidTestCompile 'junit:junit:4.12'
+    compile 'com.android.support:recyclerview-v7:+'
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#969696"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/case_layout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#ABABAB"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="fill_parent"
+            android:layout_height="26dp">
+            <ImageView
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/performance_img"
+                android:src="@drawable/ceae"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:id="@+id/performance_case"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:background="#D3D3D3"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/layout2"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp">
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Max mem(MB):"
+                    android:id="@+id/max_mem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                   android:layout_marginLeft="95dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/max_mem_vaule"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Average mem(MB):"
+                    android:id="@+id/average_mem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="120dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/average_mem_vaule"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+   </LinearLayout>
+
+</RelativeLayout>
