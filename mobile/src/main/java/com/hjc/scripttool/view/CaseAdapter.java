@@ -62,12 +62,14 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ItemViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent();
                 ArrayList<String> memStringList = new ArrayList<>();
+                ArrayList<String> cpuStringList = new ArrayList<>();
                 intent.putExtra(Constants.MAX_MEM, String.valueOf(item.getMaxMem()));
                 try {
 
                     ArrayList<String> dataList = Util.readCsv(path + item.getCaseName() + Constants.CSV, context);//此处可得到各种数据
-                    for( String data : dataList){//得到内存
-                        memStringList.add(data.split(",")[2]);
+                    for( String data : dataList){
+                        memStringList.add(data.split(",")[2]);//得到内存
+                        cpuStringList.add(data.split(",")[4]);//得到cpu
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

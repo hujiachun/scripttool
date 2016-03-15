@@ -1,13 +1,17 @@
 package com.hjc.service;
 
+import android.app.ActivityManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hjc.performance.CpuInfo;
 import com.hjc.performance.MemoryInfo;
 import com.hjc.scripttool.R;
 import com.hjc.scriptutil.Programe;
@@ -35,8 +39,9 @@ public class PerformanceService extends Service{
 
     private DecimalFormat fomart;
     private Handler handler = new Handler();
-    private int delaytime, pid;
+    private int delaytime, pid, uid;
     private MemoryInfo memoryInfo;
+    private CpuInfo cpuInfo;
     private String package_name;
     private double freeMemoryKb, processMemory;
     private String[][] heap;
@@ -49,6 +54,9 @@ public class PerformanceService extends Service{
     private static final String BLANK_STRING = "";
     private int index = 0;
     public  String test_case;
+    private ActivityManager am;
+    private String processCpu;
+
 
     @Nullable
     @Override
@@ -63,23 +71,25 @@ public class PerformanceService extends Service{
         preferences = Settings.getDefaultSharedPreferences(getApplicationContext());
         heap = new String[2][2];
         delaytime = preferences.getInt(Settings.KEY_INTERVAL, 5);
-
+        am = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         heapState = preferences.getBoolean(Settings.KEY_HEAP_STATE, false);
         package_name = preferences.getString(Settings.KEY_PACKAGE, Constants.DEFAULT_PACKAGE).split(":")[1];
         test_case =  preferences.getString(Settings.KEY_CASE, Constants.PERFORMANCE);
         Programe programe = new ProcessInfo().getProgrameByPackageName(getApplicationContext(), package_name);
         if(programe.getPid() != 0){
             pid = programe.getPid();
+            uid = programe.getUid();
         }
         else {
             try {
                 pid = Util.getPid(package_name);
+                uid = Util.getUid(package_name);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        cpuInfo = new CpuInfo(getApplicationContext(), pid);
 
-        Log.e(Constants.TAG, programe.getProcessName() + " = " + pid);
         super.onCreate();
     }
 
@@ -93,7 +103,6 @@ public class PerformanceService extends Service{
     private Runnable task = new Runnable() {
         @Override
         public void run() {
-
             try {
                 dataRefresh();
             } catch (IOException e) {
@@ -107,9 +116,7 @@ public class PerformanceService extends Service{
 
 
     /**
-     * refresh the performance data showing in floating window.
-     * @throws FileNotFoundException
-     *
+     * refresh the performance data
      * @throws IOException
      */
     private void dataRefresh() throws IOException {
@@ -121,12 +128,18 @@ public class PerformanceService extends Service{
         freeMemoryKb = (double) freeMemory / 1024;
         processMemory = (double) pidMemory / 1024;
 
+        processCpu = cpuInfo.getCpuRatioInfo();
+
+
+//        Log.e(Constants.TAG, "totalCpuRatio = " + totalCpuRatio);
+
         if(heapState){
             heap = memoryInfo.getHeapSize(pid, getApplicationContext());
         }
         DecimalFormat dFormat=new DecimalFormat("0.00");
         String percent = dFormat.format((processMemory / freeMemoryKb) * 100);
-        bw.write(index++ + Constants.COMMA + str + Constants.COMMA + dFormat.format(processMemory) + Constants.COMMA + percent + Constants.LINE_END);
+        bw.write(index++ + Constants.COMMA + str + Constants.COMMA + dFormat.format(processMemory) + Constants.COMMA + percent + Constants.PCT + Constants.COMMA +
+                processCpu + Constants.LINE_END);
         bw.flush();
     }
 
@@ -135,12 +148,9 @@ public class PerformanceService extends Service{
 //        Date date = new Date(new Date().getTime());
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 //        String str = format.format(date);
-        resultFilePath = "/sdcard/Result/performance/" + preferences.getString(Settings.KEY_PACKAGE, "").split(":")[0]
+        resultFilePath = Constants.PERFORMANCE_PATH + preferences.getString(Settings.KEY_PACKAGE, "").split(":")[0]
                 + "_" + preferences.getString(Settings.KEY_TIME, Constants.NA);
-
-
         try {
-
             File file = new File(resultFilePath);
             if(!file.exists()){
                 file.mkdirs();
@@ -161,7 +171,8 @@ public class PerformanceService extends Service{
                     + getString(R.string.android_system_version) + Constants.COMMA + memoryInfo.getSDKVersion() + Constants.LINE_END
                     + getString(R.string.mobile_type) + Constants.COMMA + memoryInfo.getPhoneType() + Constants.LINE_END);
             //横
-            bw.write(getString(R.string.index) + Constants.COMMA + getString(R.string.timestamp) + Constants.COMMA + getString(R.string.used_mem_PSS) + Constants.COMMA + getString(R.string.used_mem_ratio) + Constants.LINE_END);
+            bw.write(getString(R.string.index) + Constants.COMMA + getString(R.string.timestamp) + Constants.COMMA + getString(R.string.used_mem_PSS) + Constants.COMMA + getString(R.string.used_mem_ratio) +
+                    Constants.COMMA + getString(R.string.app_used_cpu_ratio) + Constants.COMMA + getString(R.string.total_used_cpu_ratio) + Constants.LINE_END);
             bw.flush();
 
         } catch (IOException e) {

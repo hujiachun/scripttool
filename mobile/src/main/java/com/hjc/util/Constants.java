@@ -30,4 +30,5 @@ public class Constants {
     public static final String CSV =  ".csv";
     public static final String MAX_MEM =  "max_mem";
     public static final String MEM_LIST =  "mem_list";
+    public static final String PCT =  "%";
 }

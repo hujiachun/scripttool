@@ -28,7 +28,6 @@ import java.util.HashSet;
 public class PerformanceCaseActitity extends Activity{
     ArrayList<PerformanceCaseInfo> items = new ArrayList<>();
     public ArrayList<String> case_list;
-    public SharedPreferences perference;
     public RecyclerView recyclerView;
     public HashMap<String, Float> max_mem, average_mem;
     public HashMap<String, HashMap> max_mem_hash, average_mem_hash;
@@ -56,7 +55,7 @@ public class PerformanceCaseActitity extends Activity{
         String path = Constants.PERFORMANCE_PATH + getIntent().getStringExtra(Constants.TYPE)
                 + "_"  + getIntent().getStringExtra(Constants.TIME) + "/";
         case_list = getIntent().getStringArrayListExtra(Constants.CASE_LIST);
-        perference = Settings.getDefaultSharedPreferences(getApplicationContext());
+
                 for(int i = 0; i < case_list.size(); i++){
                     String case_name = case_list.get(i).split(Constants.CSV)[0];
                     max_mem = new HashMap();
@@ -112,6 +111,6 @@ public class PerformanceCaseActitity extends Activity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(Constants.TAG, "onDestroy");
+
     }
 }

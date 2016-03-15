@@ -1,37 +1,23 @@
 package com.hjc.scripttool.activity;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.hjc.scripttool.R;
 import com.hjc.util.Constants;
-import com.hjc.util.Util;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -143,7 +129,6 @@ public class ChartActivity extends AppCompatActivity {
         public boolean onOptionsItemSelected(MenuItem item) {
             int id = item.getItemId();
             if (id == R.id.ram) {
-
                         reset();
                         generateData();
 
@@ -203,7 +188,6 @@ public class ChartActivity extends AppCompatActivity {
             chart.setMaximumViewport(v);
             chart.setCurrentViewport(v);
         }
-
 
         /**
          * 插入数据

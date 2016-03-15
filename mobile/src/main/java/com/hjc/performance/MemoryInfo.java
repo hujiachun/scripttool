@@ -11,11 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * operate memory information
- * 
- * @author andrewleo
- */
+
 public class MemoryInfo {
 
 
@@ -51,6 +47,8 @@ public class MemoryInfo {
 		}
 		return memory;
 	}
+
+
 
 	/**
 	 * get free memory.
@@ -107,7 +105,7 @@ public class MemoryInfo {
 	 * 
 	 * @return heap size
 	 */
-	public String[][] getHeapSize(int pid, Context context) {
+	public static String[][] getHeapSize(int pid, Context context) {
 		String[][] heapData = parseMeminfo(pid);
 		return heapData;
 	}
@@ -119,7 +117,7 @@ public class MemoryInfo {
 	 *            process id
 	 * @return native and heap data
 	 */
-	public String[][] parseMeminfo(int pid) {
+	public static String[][] parseMeminfo(int pid) {
 
 		boolean infoStart = false;
 		// [][],00:native heap size,01:native heap alloc;10: dalvik heap
