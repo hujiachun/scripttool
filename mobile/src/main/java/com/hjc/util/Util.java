@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -54,7 +55,7 @@ public class Util {
         String line;
         while ((line = bufferedReader2.readLine()) != null) {
             if (line.contains(tag)) {
-                Log.e(Constants.TAG, line);
+
                 if (line.split("\\s")[0].equals("shell")) {
                     return Integer.parseInt(line.split("\\s")[5]);
                 } else if (line.split("\\s")[0].equals("system")) {
@@ -68,6 +69,23 @@ public class Util {
             }
         }
         bufferedReader2.close();
+        p.destroy();
+        return 0;
+    }
+
+    public static int getUid(String tag) throws IOException {
+        Process p;
+        p = Runtime.getRuntime().exec("ps ");
+        BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = bufferedReader2.readLine()) != null) {
+            if (line.contains(tag)) {
+                    return Integer.parseInt(line.split("\\s+")[0].split("a")[1]) + 10000;
+                }
+            }
+
+        bufferedReader2.close();
+        p.destroy();
         return 0;
     }
 

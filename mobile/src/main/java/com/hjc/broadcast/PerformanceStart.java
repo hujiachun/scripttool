@@ -25,7 +25,7 @@ public class PerformanceStart extends BroadcastReceiver{
         performanceService = preferences.getBoolean(Settings.KEY_PERFORMANCE, false);
         if(performanceService){
             name = intent.getStringExtra(Constants.CASE_NAME);
-            Toast.makeText(context, name, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, name + " start", Toast.LENGTH_SHORT).show();
             preferences.edit().putString(Settings.KEY_CASE, name).commit();
 
             intent.setClass(context, PerformanceService.class);

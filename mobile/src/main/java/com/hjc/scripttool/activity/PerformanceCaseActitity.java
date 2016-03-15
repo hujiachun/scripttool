@@ -28,10 +28,10 @@ import java.util.HashSet;
 public class PerformanceCaseActitity extends Activity{
     ArrayList<PerformanceCaseInfo> items = new ArrayList<>();
     public ArrayList<String> case_list;
-    public SharedPreferences perference;
     public RecyclerView recyclerView;
     public HashMap<String, Float> max_mem, average_mem;
-    public HashMap<String, HashMap> max_mem_hash, average_mem_hash;
+    public HashMap<String, Double> max_cpu, average_cpu;
+    public HashMap<String, HashMap> max_mem_hash, average_mem_hash, max_cpu_hash, average_cpu_hash;
 
 
     private void init() {
@@ -42,7 +42,8 @@ public class PerformanceCaseActitity extends Activity{
             performanceCaseInfo.setCaseName(case_str);//获取用例名称
             performanceCaseInfo.setMaxMem((Float) max_mem_hash.get(case_str).get(Constants.CASE_NAME));
             performanceCaseInfo.setAverageMem((Float) average_mem_hash.get(case_str).get(Constants.CASE_NAME));
-
+            performanceCaseInfo.setMaxCpu((Double) max_cpu_hash.get(case_str).get(Constants.CASE_NAME));
+            performanceCaseInfo.setAverageCpu((Double) average_cpu_hash.get(case_str).get(Constants.CASE_NAME));
             items.add( performanceCaseInfo);
         }
     }
@@ -53,20 +54,28 @@ public class PerformanceCaseActitity extends Activity{
 
         max_mem_hash = new HashMap<>();
         average_mem_hash = new HashMap<>();
+        max_cpu_hash = new HashMap<>();
+        average_cpu_hash = new HashMap<>();
         String path = Constants.PERFORMANCE_PATH + getIntent().getStringExtra(Constants.TYPE)
                 + "_"  + getIntent().getStringExtra(Constants.TIME) + "/";
         case_list = getIntent().getStringArrayListExtra(Constants.CASE_LIST);
-        perference = Settings.getDefaultSharedPreferences(getApplicationContext());
+
                 for(int i = 0; i < case_list.size(); i++){
                     String case_name = case_list.get(i).split(Constants.CSV)[0];
                     max_mem = new HashMap();
                     average_mem = new HashMap();
+                    max_cpu = new HashMap();
+                    average_cpu = new HashMap();
                     try {
-                        PerformaceData pd = new PerformaceData(path + case_list.get(i), getApplicationContext());
+                        PerformaceData pd = new PerformaceData(path + case_list.get(i), getApplicationContext());//解析data
                         max_mem.put(Constants.CASE_NAME, pd.getMaxMem());
                         average_mem.put(Constants.CASE_NAME, pd.getAverageMem());
+                        max_cpu.put(Constants.CASE_NAME, pd.getMaxCpu());
+                        average_cpu.put(Constants.CASE_NAME, pd.getAverageCpu());
                         max_mem_hash.put(case_name, max_mem);//case 对应相应的值
                         average_mem_hash.put(case_name, average_mem);
+                        max_cpu_hash.put(case_name, max_cpu);//case 对应相应的值
+                        average_cpu_hash.put(case_name, average_cpu);
 
 
                     } catch (IOException e) {
@@ -105,13 +114,13 @@ public class PerformanceCaseActitity extends Activity{
             }
 
         });
-        //可以提高效率
+
         recyclerView.setHasFixedSize(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(Constants.TAG, "onDestroy");
+
     }
 }

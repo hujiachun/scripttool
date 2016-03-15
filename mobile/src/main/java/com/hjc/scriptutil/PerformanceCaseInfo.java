@@ -9,6 +9,8 @@ public class PerformanceCaseInfo {
     private String caseName;
     private Float maxMem;
     private Float averageMem;
+    private double maxCpu;
+    private double averageCpu;
     private PerformaceData performaceData;
 
     public PerformaceData getPerformaceData() {
@@ -43,5 +45,19 @@ public class PerformanceCaseInfo {
         this.averageMem = averageMem;
     }
 
+    public double getMaxCpu() {
+        return maxCpu;
+    }
 
+    public void setMaxCpu(double maxCpu) {
+        this.maxCpu = maxCpu;
+    }
+
+    public double getAverageCpu() {
+        return averageCpu;
+    }
+
+    public void setAverageCpu(double averageCpu) {
+        this.averageCpu = averageCpu;
+    }
 }

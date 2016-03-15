@@ -36,6 +36,7 @@
 
     <LinearLayout
         android:layout_marginTop="5dp"
+        android:orientation="vertical"
         android:background="#D3D3D3"
         android:layout_width="fill_parent"
         android:layout_height="60dp">
@@ -75,9 +76,52 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/average_mem_vaule"/>
             </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/layout3"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp">
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Max cpu:"
+                    android:id="@+id/max_cpu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="95dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/max_cpu_vaule"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Average cpu:"
+                    android:id="@+id/average_cpu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="120dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/average_cpu_vaule"/>
+            </RelativeLayout>
 
         </LinearLayout>
+
+
+
     </LinearLayout>
+
 
    </LinearLayout>
 

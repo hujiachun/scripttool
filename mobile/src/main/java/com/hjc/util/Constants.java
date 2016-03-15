@@ -29,5 +29,12 @@ public class Constants {
     public static final String CASE_LIST =  "cese_list";
     public static final String CSV =  ".csv";
     public static final String MAX_MEM =  "max_mem";
+    public static final String MAX_CPU =  "max_cpu";
     public static final String MEM_LIST =  "mem_list";
+    public static final String CPU_LIST =  "cpu_list";
+    public static final String PCT =  "%";
+    public static final String MEM =  "Memory MB";
+    public static final String CPU =  "CPU %";
+    public static final String INDEX =  "Index";
+
 }
