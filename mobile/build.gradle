@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 21
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.hjc.scripttool"
@@ -35,4 +35,7 @@ dependencies {
     //    compile files('libs/uiautomator.jar')
     //    androidTestCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:+'
+    compile files('C:/Users/hujiachun/Documents/code/scripttool/libs/httpclient-android-4.3.5.jar')
+    compile files('C:/Users/hujiachun/Documents/code/scripttool/libs/httpmime-4.3.4.jar')
+    compile files('C:/Users/hujiachun/Documents/code/scripttool/libs/task-push-client.jar')
 }

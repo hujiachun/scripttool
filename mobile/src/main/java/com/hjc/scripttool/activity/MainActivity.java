@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hjc.broadcast.Wifi;
 import com.hjc.scripttool.R;
+import com.hjc.service.LogCat;
 import com.hjc.service.PerformanceService;
 import com.hjc.util.Constants;
 import com.hjc.util.Copier;
@@ -124,61 +125,55 @@ public class MainActivity extends Activity{
 
     public void test1(View v) throws IOException {
 //        Intent intent = new Intent();
-//        intent.setClass(getApplicationContext(), PerformanceService.class);
+//        intent.setClass(getApplicationContext(), LogCat.class);
 //        startService(intent);
+        Log.e(Constants.TAG, "test");
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Socket socket = null;
-                try {
-                    socket = new Socket();
-                    socket.connect(new InetSocketAddress("172.16.152.20", 8384), 10000);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                BufferedReader br = null;
-
-                try {
-//                    if(socket != null){
-                        InputStream sis = socket.getInputStream();
-                        br = new BufferedReader(new InputStreamReader(sis));
-                        try {
-
-                            String line = br.readLine();
-                            Log.e(Constants.TAG, line);
-
-                            Message ms = new Message();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("str", line);
-                            ms.setData(bundle);
-                            hd.sendMessage(ms);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-//                    }
-//                    else {
-//                        hd.sendMessage(new Message());
-//                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Socket socket = null;
+//                try {
+//                    socket = new Socket();
+//                    socket.connect(new InetSocketAddress("172.16.152.20", 8384), 10000);
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                BufferedReader br = null;
+//
+//                try {
+////                    if(socket != null){
+//                        InputStream sis = socket.getInputStream();
+//                        br = new BufferedReader(new InputStreamReader(sis));
+//                        try {
+//
+//                            String line = br.readLine();
+//                            Log.e(Constants.TAG, line);
+//
+//                            Message ms = new Message();
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString("str", line);
+//                            ms.setData(bundle);
+//                            hd.sendMessage(ms);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            br.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        try {
+//                            socket.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
 
 
 

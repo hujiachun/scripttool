@@ -17,7 +17,6 @@ import com.hjc.scripttool.R;
 import com.hjc.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
-import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
