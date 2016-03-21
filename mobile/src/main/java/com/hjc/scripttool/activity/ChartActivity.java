@@ -17,7 +17,6 @@ import com.hjc.scripttool.R;
 import com.hjc.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
-import lecho.lib.hellocharts.animation.ChartAnimationListener;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
@@ -62,7 +61,6 @@ public class ChartActivity extends AppCompatActivity {
         public ArrayList<Float> memFloatList, cpuFloatList;
         public int numberOfPoints;
         public float MAX_Y;
-
         private LineChartView chart;
         private LineChartData data;
         float[] randomNumbersTab;
@@ -97,7 +95,7 @@ public class ChartActivity extends AppCompatActivity {
         public void getMemData(Intent intent) {
             MAX_Y = Float.parseFloat(intent.getStringExtra(Constants.MAX_MEM));
             memStringList = intent.getStringArrayListExtra(Constants.MEM_LIST);
-            memFloatList = new ArrayList<>();
+            memFloatList = new ArrayList();
             for (String data : memStringList) {//得到内存
                 memFloatList.add(Float.parseFloat(data));
             }
@@ -108,7 +106,6 @@ public class ChartActivity extends AppCompatActivity {
 
         /**
          * 得到CPU数据
-         *
          * @param intent
          */
         public void getCpuData(Intent intent) {
@@ -132,11 +129,8 @@ public class ChartActivity extends AppCompatActivity {
             getMemData(intent);
             generateValues();
             generateData(Constants.MEM);
-            // Disable viewpirt recalculations, see toggleCubic() method for more info.
             chart.setViewportCalculationEnabled(false);
-
             resetViewport();
-
             return rootView;
         }
 
@@ -158,8 +152,6 @@ public class ChartActivity extends AppCompatActivity {
                 generateValues();
                 generateData(Constants.MEM);
                 resetViewport();
-
-
                 return true;
             }
             if (id == R.id.cpu) {
@@ -220,8 +212,8 @@ public class ChartActivity extends AppCompatActivity {
          * 插入数据
          */
         private void generateData(String type) {
-            List<Line> lines = new ArrayList<>();
-            List<PointValue> values = new ArrayList<>();
+            List<Line> lines = new ArrayList();
+            List<PointValue> values = new ArrayList();
             for (int i = 0; i < numberOfPoints; i++) {
                 values.add(new PointValue(i, randomNumbersTab[i]));
 
@@ -259,14 +251,9 @@ public class ChartActivity extends AppCompatActivity {
 
             data.setBaseValue(Float.NEGATIVE_INFINITY);
             chart.setLineChartData(data);
-
-
         }
 
-        /**
-         * Adds lines to data, after that data should be set again with
-         * {@link LineChartView#setLineChartData(LineChartData)}. Last 4th line has non-monotonically x values.
-         */
+
         private void cpuData() {
             getCpuData(intent);
             generateValues();
@@ -275,7 +262,6 @@ public class ChartActivity extends AppCompatActivity {
         }
 
         private void batteryData() {
-
 
         }
 

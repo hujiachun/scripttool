@@ -144,7 +144,7 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
         return items.size();
     }
 
-    //ViewHolder，用于缓存，提高效率
+    //ViewHolder，用于缓存
     public final static class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView time;

@@ -1,6 +1,5 @@
 package com.hjc.util;
 
-import android.util.Log;
 
 import java.io.*;
 import java.util.zip.*;
@@ -15,8 +14,8 @@ public class ZipCompressor {
      */
     public static void zip(File source) {
         String dir = source.getParent();
-        File target = new File("/storage/emulated/0/TestResult/testResult.zip");
-        Log.i("ZIP_TEST", target.getPath());
+        File target = new File("/storage/emulated/0/Result/testResult.zip");
+
         FileOutputStream fos = null;
         ZipOutputStream zipos = null;
 

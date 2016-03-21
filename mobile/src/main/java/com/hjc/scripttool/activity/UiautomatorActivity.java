@@ -186,11 +186,6 @@ public class UiautomatorActivity extends Activity {
                     Util.startLogcat(getApplicationContext(), file);
 
 
-                    //logcat路径
-//                    SharedPreferences logcat_sp = getSharedPreferences("logcat_path", Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor logcat_editor = logcat_sp.edit();
-//                    logcat_editor.putString("logcat_path", file.getAbsolutePath());
-//                    logcat_editor.commit();
                     preferences.edit().putString(Settings.KEY_LOGCAT_PATH, file.getAbsolutePath()).
                             putBoolean(Settings.KEY_LOGCAT_STATE, true).
                             putString(Settings.KEY_TIME, str).commit();
@@ -202,11 +197,6 @@ public class UiautomatorActivity extends Activity {
                     db.delete(jar);
                     db.insert(auto);
 
-//                    SharedPreferences sp = getSharedPreferences("path", Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sp.edit();
-//                    editor.clear();
-//                    editor.putString("resultpath", file.getAbsolutePath());
-//                    editor.commit();
 
                     preferences.edit().putString(Settings.KEY_LOGCAT_PATH, file.getAbsolutePath()).putString(Settings.KEY_UIAUTOMATOR, file.getAbsolutePath()).commit();
                     run_ui = new Thread(new Runnable() {
@@ -353,27 +343,6 @@ public class UiautomatorActivity extends Activity {
 
 
     }
-
-
-
-//    private final class logConnection implements ServiceConnection {
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-//            Log.e("com.hjc.com.hjc.scripttool.com.hjc.scripttool", "logConnection");
-//            iLogactService = ILogactService.Stub.asInterface(iBinder);
-//            try {
-//                iLogactService.startlogcat();
-//            } catch (RemoteException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//
-//        }
-//    }
 
 
 }

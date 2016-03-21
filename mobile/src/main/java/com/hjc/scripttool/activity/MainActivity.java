@@ -6,38 +6,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.hjc.broadcast.Wifi;
+import com.hjc.http.FormFile;
+import com.hjc.http.Http;
+import com.hjc.http.NewsService;
+import com.hjc.http.SocketHttpRequester;
 import com.hjc.scripttool.R;
-import com.hjc.service.PerformanceService;
 import com.hjc.util.Constants;
-import com.hjc.util.Copier;
-import com.hjc.util.Util;
-import com.hjc.util.ZipCompressor;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-
-import lecho.lib.hellocharts.view.hack.HackyDrawerLayout;
+import java.util.Map;
 
 
 /**
@@ -122,76 +111,43 @@ public class MainActivity extends Activity{
         }
     };
 
-    public void test1(View v) throws IOException {
-//        Intent intent = new Intent();
-//        intent.setClass(getApplicationContext(), PerformanceService.class);
-//        startService(intent);
 
+    public void uploadFile(File imageFile) {
+        Log.e(Constants.TAG, "upload start");
+        try {
+            String requestUrl = "http://172.16.11.126:8000/account/uploaddone/";
+            //请求普通信息
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("fileName", imageFile.getName());
+            //上传文件
+            FormFile formfile = new FormFile(imageFile.getName(), imageFile, "image", "application/octet-stream");
+
+            SocketHttpRequester.post(requestUrl, params, formfile);
+            Log.e(Constants.TAG, "upload success");
+        } catch (Exception e) {
+            Log.e(Constants.TAG, "upload error");
+            e.printStackTrace();
+        }
+        Log.e(Constants.TAG, "upload end");
+    }
+
+    public void test1(View v) throws IOException {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Socket socket = null;
-                try {
-                    socket = new Socket();
-                    socket.connect(new InetSocketAddress("172.16.152.20", 8384), 10000);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                BufferedReader br = null;
-
-                try {
-//                    if(socket != null){
-                        InputStream sis = socket.getInputStream();
-                        br = new BufferedReader(new InputStreamReader(sis));
-                        try {
-
-                            String line = br.readLine();
-                            Log.e(Constants.TAG, line);
-
-                            Message ms = new Message();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("str", line);
-                            ms.setData(bundle);
-                            hd.sendMessage(ms);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            br.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-//                    }
-//                    else {
-//                        hd.sendMessage(new Message());
-//                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
+//                ZipCompressor.zip(new File("/storage/emulated/0/Result/performance/"));
+//                Http.upload("/storage/emulated/0/Result/testResult.zip", "http://172.16.11.126:8000/account/uploaddone/");
+                int state = Http.upload("/storage/emulated/0/Result/gps_stats.txt", "http://172.16.11.126:8000/account/upfile/");
+                Log.e(Constants.TAG, " " + state);
             }
         }).start();
-
-
-
 
     }
 
 
     public void performance(View v) {
 
-//        ArrayList<String> data = Util.readCsv("/sdcard/Result/performance/2016-03-02-13-17-54/data.csv", getApplicationContext());
-//
         Intent intent = new Intent();
-//        intent.putStringArrayListExtra("data", data);
         File file = new File(Constants.PERFORMANCE_PATH);
         String[] list = file.list();
 
@@ -201,18 +157,4 @@ public class MainActivity extends Activity{
         startActivity(intent);
     }
 
-//        jarlist = (ArrayList<String>) LeadJarServices.getSystemJarList();
-//        Intent intent = new Intent();
-//        intent.putStringArrayListExtra("jarlist", jarlist);
-//        intent.setClass(getApplicationContext(), AlibabaActivity.class);
-//        startActivity(intent);
-
-//    }
-
-//    Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {// handler接收到消息后就会执行此方法
-//            progress.dismiss();// 关闭ProgressDialog
-//        }
-//    };
 }

@@ -46,15 +46,15 @@ public class CpuInfo {
 
 	private Context context;
 	private long processCpu, totalCpu;
-	private ArrayList<Long> idleCpu = new ArrayList<>();
+	private ArrayList<Long> idleCpu = new ArrayList();
 	private boolean isInitialStatics = true;
 	private SimpleDateFormat formatterFile;
 	private MemoryInfo mi;
-	private ArrayList<String> cpuUsedRatio = new ArrayList<>();
+	private ArrayList<String> cpuUsedRatio = new ArrayList();
 	private long processCpu2, totalCpu2;
-	private ArrayList<Long> idleCpu2 = new ArrayList<>();
+	private ArrayList<Long> idleCpu2 = new ArrayList();
 	private String processCpuRatio = "";
-	private ArrayList<String> totalCpuRatio = new ArrayList<>();
+	private ArrayList<String> totalCpuRatio = new ArrayList();
 	private int pid;
 
 	private static final String INTEL_CPU_NAME = "model name";
@@ -67,7 +67,7 @@ public class CpuInfo {
 		this.pid = pid;
 		this.context = context;
 		formatterFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		cpuUsedRatio = new ArrayList<>();
+		cpuUsedRatio = new ArrayList();
 	}
 
 	/**
@@ -137,7 +137,6 @@ public class CpuInfo {
 			}
 		}
 
-		Log.e(Constants.TAG, processCpu + ", " + totalCpu);
 	}
 
 	/**

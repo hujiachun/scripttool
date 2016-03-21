@@ -64,7 +64,7 @@ public class CaseAdapter extends RecyclerView.Adapter<CaseAdapter.ItemViewHolder
                 intent.putExtra(Constants.MAX_CPU, String.valueOf(item.getMaxCpu()));
                 try {
 
-                    ArrayList<String> dataList = Util.readCsv(path + item.getCaseName() + Constants.CSV, context);//此处可得到各种数据
+                    ArrayList<String> dataList = Util.readCsv(path + item.getCaseName() + Constants.CSV, context);//解析CSV
                     for( String data : dataList){
                         memStringList.add(data.split(",")[2]);//得到内存
                         cpuStringList.add(data.split(",")[4].split(Constants.PCT)[0]);//得到cpu
