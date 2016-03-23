@@ -13,13 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.hjc.broadcast.Wifi;
-import com.hjc.http.FormFile;
-import com.hjc.http.Http;
-import com.hjc.http.NewsService;
-import com.hjc.http.SocketHttpRequester;
 import com.hjc.scripttool.R;
 import com.hjc.util.Constants;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,7 +100,6 @@ public class MainActivity extends Activity{
             super.handleMessage(msg);
         }
     };
-
 
 
 

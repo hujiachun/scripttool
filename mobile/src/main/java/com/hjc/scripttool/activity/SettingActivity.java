@@ -111,6 +111,7 @@ public class SettingActivity extends Activity{
 
                 if (checked) {
                     if (!SettingActivity.this.wifi.getConnectionInfo().getSSID().toString().equals(ssid.getText().toString())) {
+
                         SettingActivity.this.wifi.setWifiEnabled(false);
                     }
                     SettingActivity.this.wifi.setWifiEnabled(true);

@@ -103,6 +103,12 @@
            </intent-filter>
        </receiver>
 
+        <receiver android:name="com.hjc.broadcast.WriteLog">
+            <intent-filter>
+                <action android:name="sk.action.WRITELOG"></action>
+            </intent-filter>
+        </receiver>
+        <service android:name="com.hjc.service.LogCat"></service>
         <service android:name="com.hjc.service.PerformanceService"></service>
         <service android:name="com.hjc.service.LogcatService"></service>
        <service android:name="com.hjc.service.TimerService"></service>

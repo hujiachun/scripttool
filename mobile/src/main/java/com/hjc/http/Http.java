@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.hjc.util.Constants;
 
-import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -25,11 +23,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-
 
 
 public class Http {
+
+
+
+
 
     public static final String PROTOCOL_HTTP = "";
 
@@ -46,6 +46,10 @@ public class Http {
     private static final String STORAGE_URL = "";
 
 
+    //every post need these.
+    private String m_device;
+    private String m_version;
+
     //real time post
     private String m_case;
 
@@ -54,24 +58,13 @@ public class Http {
 
     private File m_screenshot;
 
-
+    private SharedPreferences pref_sk;
 
     public Http(Context context) {
 
     }
 
 
-    /**
-     * real time post result
-     *
-     * @param context      context to read preferences
-     * @param m_case       case json string
-     * @param m_module     module of cases
-     * @param m_screenshot screenshot of case
-     */
-    public Http(Context context, String m_case, long m_module, File m_screenshot) {
-
-    }
 
     public static long getContentLength(String url) throws IOException {
         HttpGet post = new HttpGet(url);
@@ -79,13 +72,13 @@ public class Http {
         return client.execute(post).getEntity().getContentLength();
     }
 
-    public static int upload(String path, String url) {
+    public int upload(String path, String url) {
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
         httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000);
         httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
         HttpPost httppost = new HttpPost(url);
-        Log.e(Constants.TAG, "Upload url : " + url);
+
         File file = new File(path);
         MultipartEntityBuilder me = MultipartEntityBuilder.create();
         me.addBinaryBody("m_file", file);
@@ -96,11 +89,12 @@ public class Http {
         String line = "";
         try {
             response = httpclient.execute(httppost);
-            Log.e(Constants.TAG,"back: " + response.getStatusLine().toString());
+
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             while ((line = rd.readLine())!= null) {
                 result += line;
+                Log.e(Constants.TAG, result);
             }
         } catch (Exception e) {
             Log.e(Constants.TAG, "upload failed because of :\n" + e.getMessage());
@@ -109,13 +103,12 @@ public class Http {
         }
         int status = -1;
         try {
-            status = JSON.parseObject(result).getInteger("status");
+
         }catch (Exception e){
             e.printStackTrace();
         }
         return status;
     }
-
 
 
 }
