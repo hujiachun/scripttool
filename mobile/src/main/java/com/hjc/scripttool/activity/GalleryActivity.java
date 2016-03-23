@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.hjc.scripttool.R;
 import com.hjc.scripttool.view.ImageAdapter;
+import com.hjc.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,9 +38,9 @@ public class GalleryActivity extends Activity {
         testcase_text = (TextView) findViewById(R.id.testcase);
         back.setImageResource(R.drawable.back3);
         Intent intent = getIntent();
-        shotString = intent.getStringExtra("shotString");
-        testcase = intent.getStringExtra("testcase");
-        methods = intent.getStringArrayListExtra("caselist");
+        shotString = intent.getStringExtra(Constants.SHOT);
+        testcase = intent.getStringExtra(Constants.TESTCASE);
+        methods = intent.getStringArrayListExtra(Constants.CASE_LIST);
         testcase_text.setText(testcase);
 
         back.setOnClickListener(new View.OnClickListener() {

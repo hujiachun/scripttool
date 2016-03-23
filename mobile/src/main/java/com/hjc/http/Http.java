@@ -46,9 +46,6 @@ public class Http {
     private static final String STORAGE_URL = "";
 
 
-
-
-
     //real time post
     private String m_case;
 

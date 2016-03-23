@@ -172,7 +172,7 @@ public class UiautomatorActivity extends Activity {
 
 
 //                    file = new File(Environment.getExternalStorageDirectory() + "/Result/Uiautomator/" + new Date().getTime() + "/" + jar.split(".jar")[0]);
-                    file = new File(Environment.getExternalStorageDirectory() + "/Result/Uiautomator/" + str + "/" + jar.split(".jar")[0]);
+                    file = new File(Constants.UIAUTOMATOR_PATH + str + "/" + jar.split(".jar")[0]);
                     if (!file.exists()) {
                         file.mkdirs();
                     }
@@ -244,7 +244,7 @@ public class UiautomatorActivity extends Activity {
 
 
         btn_history.setOnClickListener(new View.OnClickListener() {
-            File file1 = new File("/sdcard/Result/Uiautomator");
+            File file1 = new File(Constants.UIAUTOMATOR_PATH);
             String[] file1list = file1.list();
             String time;
             @Override
@@ -256,7 +256,7 @@ public class UiautomatorActivity extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         time = file1list[i];
-                        File file2 = new File("/sdcard/Result/Uiautomator/" + time);
+                        File file2 = new File(Constants.UIAUTOMATOR_PATH + time);
                         String type = file2.list()[0];
 
                         ArrayList<String> results = Util.readText(Settings.getDefaultSharedPreferences(getApplicationContext()).getString(Settings.KEY_UIAUTOMATOR, "")
@@ -273,9 +273,9 @@ public class UiautomatorActivity extends Activity {
 
 
                         Intent intent = new Intent();
-                                intent.putExtra("time", time);
-                                intent.putExtra("type", type);
-                                intent.putExtra("request", 1);
+                                intent.putExtra(Constants.TIME, time);
+                                intent.putExtra(Constants.TYPE, type);
+                                intent.putExtra(Constants.REQUEST, 1);
                                 Collections.sort(methods);
                                 intent.putStringArrayListExtra(Constants.METHODS, methods);
                                 intent.putStringArrayListExtra(Constants.ERROR_METHODS, error_methods);

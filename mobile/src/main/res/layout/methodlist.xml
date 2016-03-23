@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFEFDB"
+    android:background="#969696"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/resutlist"
         android:visibility="invisible"
-        android:background="#FFEFDB"
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -128,7 +128,7 @@
         android:layout_height="0dip"
         android:layout_weight="1"
         android:id="@+id/methodlist"
-        android:background="#FFEFDB"
+
         />
 
     <LinearLayout
@@ -138,31 +138,34 @@
         android:orientation="horizontal" >
 
         <Button
+            android:background="#00323232"
             android:id="@+id/error"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="error"
-            android:background="#FFEFDB"
+
             />
 
         <Button
+            android:background="#00323232"
             android:id="@+id/error_run"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="run error"
-            android:background="#FFEFDB"
+
             android:onClick="runError"
             />
 
         <Button
+            android:background="#00323232"
             android:id="@+id/ok"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="ok"
-            android:background="#FFEFDB"/>
+           />
 
     </LinearLayout>
 

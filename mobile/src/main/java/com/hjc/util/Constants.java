@@ -25,6 +25,8 @@ public class Constants {
     public static final String PERFORMANCE_DATA =  "performance_data";
     public static final String PERFORMANCE_PATH =  "/sdcard/Result/performance/";
     public static final String MONKEY_PATH =  "/sdcard/Result/Monkey/";
+    public static final String UIAUTOMATOR_PATH =  "/sdcard/Result/Uiautomator/";
+
     public static final String CASE_NAME =  "NAME";
     public static final String CASE_LIST =  "cese_list";
     public static final String CSV =  ".csv";
@@ -33,10 +35,12 @@ public class Constants {
     public static final String MEM_LIST =  "mem_list";
     public static final String CPU_LIST =  "cpu_list";
     public static final String PCT =  "%";
+    public static final String C =  "℃";
     public static final String MEM =  "Memory MB";
     public static final String CPU =  "CPU %";
     public static final String INDEX =  "Index";
-
-
+    public static final String TESTCASE = "testcase";
+    public static final String SHOT = "shotString";
+    public static final String BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
 
 }

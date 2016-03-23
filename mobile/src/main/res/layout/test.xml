@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text"
+            android:text="http://b21.photo.store.qq.com/psu?/b061c34b-5c0a-4f1f-9691-969af3144448/QI3bFYR9QtBh2wGeUvvm8eIIlYmai71Pa1tItoFf818!/b/YWeulgxfmQAAYkarlgw3mAAAbo=ngL2AQAAAAABAEw!rf=viewer_4"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:text="click"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageview"/>
+
+    </LinearLayout>
+
+</LinearLayout>

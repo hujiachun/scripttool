@@ -145,11 +145,6 @@ public class SettingActivity extends Activity{
                         file.mkdirs();
                     }
 
-                    //logcat路径
-//                    SharedPreferences logcat_sp = getSharedPreferences("logcat_path", Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor logcat_editor = logcat_sp.edit();
-//                    logcat_editor.putString("logcat_path", file.getAbsolutePath());
-//                    logcat_editor.commit();
                     preferences.edit().putString(Settings.KEY_LOGCAT_PATH, file.getAbsolutePath()).putBoolean(Settings.KEY_LOGCAT_STATE, true).commit();
 
                     new Thread(new Runnable() {
@@ -327,8 +322,8 @@ public class SettingActivity extends Activity{
             }
         });
 
-        final String[] types = new String[]{"logcat", "monkey", "uiautomator"};
-        builder.setMultiChoiceItems(types, new boolean[]{false, false, false}, new DialogInterface.OnMultiChoiceClickListener() {
+        final String[] types = new String[]{"logcat", "monkey", "uiautomator", "performance"};
+        builder.setMultiChoiceItems(types, new boolean[]{false, false, false, false}, new DialogInterface.OnMultiChoiceClickListener() {
 
 
             @Override

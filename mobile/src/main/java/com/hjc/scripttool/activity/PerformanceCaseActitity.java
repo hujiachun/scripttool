@@ -77,7 +77,6 @@ public class PerformanceCaseActitity extends Activity{
                         max_cpu_hash.put(case_name, max_cpu);//case 对应相应的值
                         average_cpu_hash.put(case_name, average_cpu);
 
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

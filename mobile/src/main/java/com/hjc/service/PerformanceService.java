@@ -2,15 +2,16 @@ package com.hjc.service;
 
 import android.app.ActivityManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.hjc.performance.CpuInfo;
 import com.hjc.performance.MemoryInfo;
 import com.hjc.scripttool.R;
@@ -19,17 +20,13 @@ import com.hjc.scriptutil.Settings;
 import com.hjc.util.Constants;
 import com.hjc.util.ProcessInfo;
 import com.hjc.util.Util;
-
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -56,7 +53,8 @@ public class PerformanceService extends Service{
     public  String test_case;
     private ActivityManager am;
     private String processCpu;
-
+    public String totalBatt, temperature;
+    private BatteryInfoBroadcastReceiver batteryBroadcast = null;
 
     @Nullable
     @Override
@@ -90,6 +88,8 @@ public class PerformanceService extends Service{
         }
         cpuInfo = new CpuInfo(getApplicationContext(), pid);
 
+        batteryBroadcast = new BatteryInfoBroadcastReceiver();//注册电量广播
+        registerReceiver(batteryBroadcast, new IntentFilter(Constants.BATTERY_CHANGED));
         super.onCreate();
     }
 
@@ -136,18 +136,17 @@ public class PerformanceService extends Service{
         if(heapState){
             heap = memoryInfo.getHeapSize(pid, getApplicationContext());
         }
+
         DecimalFormat dFormat=new DecimalFormat("0.00");
         String percent = dFormat.format((processMemory / freeMemoryKb) * 100);
+
         bw.write(index++ + Constants.COMMA + str + Constants.COMMA + dFormat.format(processMemory) + Constants.COMMA + percent + Constants.PCT + Constants.COMMA +
-                processCpu + Constants.LINE_END);
+                processCpu + Constants.COMMA + totalBatt + Constants.PCT + Constants.COMMA + temperature + Constants.C + Constants.LINE_END);
         bw.flush();
     }
 
 
     private void createResultCsv(String testcase) {
-//        Date date = new Date(new Date().getTime());
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-//        String str = format.format(date);
         resultFilePath = Constants.PERFORMANCE_PATH + preferences.getString(Settings.KEY_PACKAGE, "").split(":")[0]
                 + "_" + preferences.getString(Settings.KEY_TIME, Constants.NA);
         try {
@@ -172,7 +171,7 @@ public class PerformanceService extends Service{
                     + getString(R.string.mobile_type) + Constants.COMMA + memoryInfo.getPhoneType() + Constants.LINE_END);
             //横
             bw.write(getString(R.string.index) + Constants.COMMA + getString(R.string.timestamp) + Constants.COMMA + getString(R.string.used_mem_PSS) + Constants.COMMA + getString(R.string.used_mem_ratio) +
-                    Constants.COMMA + getString(R.string.app_used_cpu_ratio) + Constants.COMMA + getString(R.string.total_used_cpu_ratio) + Constants.LINE_END);
+                    Constants.COMMA + getString(R.string.app_used_cpu_ratio) + Constants.COMMA + getString(R.string.battery) + getString(R.string.temperature) + Constants.LINE_END);
             bw.flush();
 
         } catch (IOException e) {
@@ -185,5 +184,21 @@ public class PerformanceService extends Service{
     public void onDestroy() {
         handler.removeCallbacks(task);
         super.onDestroy();
+    }
+
+    public class BatteryInfoBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                totalBatt = String.valueOf(level * 100 / scale);
+                temperature = String.valueOf(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) * 1.0 / 10);
+            }
+
+        }
+
     }
 }

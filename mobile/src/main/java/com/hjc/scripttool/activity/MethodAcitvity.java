@@ -60,13 +60,13 @@ public class MethodAcitvity extends Activity {
         error_methods = new ArrayList<>();
 
         Intent intent= getIntent();//得到UiautomatorActivity传值信息
-        if(intent.getIntExtra("request", 0) == 1){
+        if(intent.getIntExtra(Constants.REQUEST, 0) == 1){
             resutlist.setVisibility(View.VISIBLE);
         }
         methods = intent.getStringArrayListExtra(Constants.METHODS);
         error_methods = intent.getStringArrayListExtra(Constants.ERROR_METHODS);
-        type = intent.getStringExtra("type");
-        time = intent.getStringExtra("time");
+        type = intent.getStringExtra(Constants.TYPE);
+        time = intent.getStringExtra(Constants.TIME);
 
         ListView methodlist = (ListView) this.findViewById(R.id.methodlist);
         adapter = new MethodView(this, methods, R.layout.methoditem,
@@ -253,15 +253,11 @@ public class MethodAcitvity extends Activity {
                 @Override
                 public void run() {
 
-                    File file = new File(Environment.getExternalStorageDirectory() + "/Result/Uiautomator/" + time + "/" + type);
+                    File file = new File(Constants.UIAUTOMATOR_PATH + time + "/" + type);
                     if (!file.exists()) {
                         file.mkdirs();
                     }
-//                    SharedPreferences sp = getSharedPreferences("path", Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor = sp.edit();
-//                    editor.clear();
-//                    editor.putString("resultpath", file.getAbsolutePath());
-//                    editor.commit();
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -269,17 +265,10 @@ public class MethodAcitvity extends Activity {
                         }
                     }).start();
 
-                    Util.startLogcat(getApplicationContext(), new File("/sdcard/Result/Uiautomator/" + time + "/" + type));
-
-                    //logcat路径
-//                    SharedPreferences logcat_sp = getSharedPreferences("logcat_path", Activity.MODE_PRIVATE);
-//                    SharedPreferences.Editor logcat_editor = logcat_sp.edit();
-//                    logcat_editor.putString("logcat_path", file.getAbsolutePath());
-//                    logcat_editor.commit();
-
+                    Util.startLogcat(getApplicationContext(), new File(Constants.UIAUTOMATOR_PATH + time + "/" + type));
 
                     try {
-                        ShellUtils.execCcommand(finalCommand + ">>" + "/sdcard/Result/Uiautomator/" + time + "/" + type + "/log.txt");
+                        ShellUtils.execCcommand(finalCommand + ">>" + Constants.UIAUTOMATOR_PATH + time + "/" + type + "/log.txt");
                         handler.sendMessage(new Message());
 
                     } catch (IOException e) {

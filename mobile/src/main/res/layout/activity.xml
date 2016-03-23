@@ -10,10 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activity"
     android:weightSum="1"
-    android:background="#FFEFDB">
+    android:background="#969696">
 
     <LinearLayout
-        android:background="#FFEFDB"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -21,71 +20,79 @@
         android:layout_weight="0.43">
 
         <Button
+            android:textAllCaps="false"
+            android:background="#00323232"
             android:textSize="20dp"
-            android:background="#FFEFDB"
             android:id="@+id/btn_monkey"
             android:layout_gravity="center"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="monkey"
+            android:text="Monkey"
             android:onClick="gotoMonkey"/>
 
         <Button
+            android:textAllCaps="false"
             android:textSize="20dp"
-            android:background="#FFEFDB"
+            android:background="#00323232"
             android:id="@+id/btn_uiautomator"
             android:layout_gravity="center"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="uiautomator"
+            android:text="Uiautomator"
             android:onClick="gotoUiautomator"
             />
 
-
-
-            <Button
-                android:textSize="20dp"
-                android:background="#FFEFDB"
-                android:layout_gravity="center"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="SETTING"
-                android:onClick="gotosetting" />
-
-
         <Button
+            android:textAllCaps="false"
             android:textSize="20dp"
-            android:background="#FFEFDB"
+            android:background="#00323232"
+            android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Performance"
+            android:onClick="performance"
+            />
+        <Button
+            android:textAllCaps="false"
+            android:textSize="20dp"
+            android:background="#00323232"
             android:layout_gravity="center"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="test"
             android:onClick="test1"
             />
-        <Button
-            android:textSize="20dp"
-            android:background="#FFEFDB"
-            android:layout_gravity="center"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="performance"
-            android:onClick="performance"
-            />
-
     </LinearLayout>
 
 
 
     <LinearLayout
+        android:onClick="gotosetting"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></LinearLayout>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ScriptTool v1.0"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ScriptTool v1.0"
+            />
+
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/setting"/>
+
+    </LinearLayout>
+
+
+
+
 
 
 

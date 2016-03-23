@@ -34,18 +34,14 @@ import java.util.Map;
  */
 public class MainActivity extends Activity{
     public String str;
-//    ProgressDialog progress;
-//    ArrayList<String> jarlist = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
-//        SuSheller.clearTestCache(true);
         final SharedPreferences.Editor edit;
         final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
         edit = sp.edit();
-
-//        edit.putBoolean("switch", true);
         WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if(sp.getString("ssid", "") == ""){
             edit.putBoolean("state", true);
@@ -58,7 +54,6 @@ public class MainActivity extends Activity{
         else {
             sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
         }
-
 
 
 //        File uitest = new File(getFilesDir().getPath() + "/uitest.zip");
@@ -112,49 +107,36 @@ public class MainActivity extends Activity{
     };
 
 
-    public void uploadFile(File imageFile) {
-        Log.e(Constants.TAG, "upload start");
-        try {
-            String requestUrl = "http://172.16.11.126:8000/account/uploaddone/";
-            //请求普通信息
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("fileName", imageFile.getName());
-            //上传文件
-            FormFile formfile = new FormFile(imageFile.getName(), imageFile, "image", "application/octet-stream");
 
-            SocketHttpRequester.post(requestUrl, params, formfile);
-            Log.e(Constants.TAG, "upload success");
-        } catch (Exception e) {
-            Log.e(Constants.TAG, "upload error");
-            e.printStackTrace();
-        }
-        Log.e(Constants.TAG, "upload end");
-    }
 
     public void test1(View v) throws IOException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-//                ZipCompressor.zip(new File("/storage/emulated/0/Result/performance/"));
-//                Http.upload("/storage/emulated/0/Result/testResult.zip", "http://172.16.11.126:8000/account/uploaddone/");
-                int state = Http.upload("/storage/emulated/0/Result/gps_stats.txt", "http://172.16.11.126:8000/account/upfile/");
-                Log.e(Constants.TAG, " " + state);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+////                ZipCompressor.zip(new File("/storage/emulated/0/Result/performance/"));
+////                Http.upload("/storage/emulated/0/Result/testResult.zip", "http://172.16.11.126:8000/account/uploaddone/");
+//                int state = Http.upload("/storage/emulated/0/Result/gps_stats.txt", "http://172.16.11.126:8000/account/upfile/");
+//                Log.e(Constants.TAG, " " + state);
+//            }
+//        }).start();
+        startActivity(new Intent().setClass(getApplicationContext(), TestActivity.class));
 
     }
 
 
     public void performance(View v) {
-
         Intent intent = new Intent();
         File file = new File(Constants.PERFORMANCE_PATH);
         String[] list = file.list();
-
-        List<String> hisList = new ArrayList<>(Arrays.asList(list));
-        intent.putStringArrayListExtra(Constants.PERFORMANCE_LIST, (ArrayList<String>) hisList);
-        intent.setClass(getApplicationContext(), PerformanceHistoryAcitity.class);
-        startActivity(intent);
+        if(list != null){
+            List<String> hisList = new ArrayList<>(Arrays.asList(list));
+            intent.putStringArrayListExtra(Constants.PERFORMANCE_LIST, (ArrayList<String>) hisList);
+            intent.setClass(getApplicationContext(), PerformanceHistoryAcitity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

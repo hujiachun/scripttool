@@ -56,8 +56,6 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
         this.listener = listener;
     }
 
-
-
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
@@ -97,17 +95,10 @@ public class PerformanceAdapter extends RecyclerView.Adapter<PerformanceAdapter.
         itemViewHolder.review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e(Constants.TAG, item.getName());
-//                Intent intent = new Intent();
-//                intent.putExtra(Constants.PERFORMANCE_DATA, item.getName()+ "_"+ item.getTime());
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.setClass(context.getApplicationContext(), ChartActivity.class);
-//                context.startActivity(intent);
 
                 Intent intent = new Intent();
                 File file = new File(Constants.PERFORMANCE_PATH + itemViewHolder.name.getText() + "_" + itemViewHolder.time.getText());
                 String[] list = file.list();
-
 
                 List<String> hisList = new ArrayList<>(Arrays.asList(list));
                 intent.putStringArrayListExtra(Constants.CASE_LIST, (ArrayList<String>) hisList).

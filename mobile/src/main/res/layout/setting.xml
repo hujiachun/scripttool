@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:background="#969696"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="#FFEFDB"
+        android:background="#ABABAB"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -95,7 +97,7 @@
 
 
     <LinearLayout
-        android:background="#FFEFDB"
+        android:background="#ABABAB"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -191,7 +193,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:max="59"
+            android:max="19"
             android:maxHeight="2.0dip"
             android:minHeight="2.0dip"
             android:paddingBottom="@dimen/layout_vertical_margin_small"
@@ -243,7 +245,7 @@
 
 
     <LinearLayout
-        android:background="#FFEFDB"
+        android:background="#ABABAB"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView

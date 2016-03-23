@@ -18,6 +18,13 @@
        <uses-library android:name="android.test.runner" />
 
 
+
+
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.hjc.scripttool.activity.TestActivity"
+            >
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name="com.hjc.scripttool.activity.PerformanceCaseActitity"

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hjc.scripttool.R;
 import com.hjc.scripttool.activity.GalleryActivity;
+import com.hjc.util.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class MethodView extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("shotString", shotfile.getAbsolutePath()).putExtra("testcase", methods.get(i)).putStringArrayListExtra("caselist", methods);
+                intent.putExtra(Constants.SHOT, shotfile.getAbsolutePath()).putExtra(Constants.TESTCASE, methods.get(i)).putStringArrayListExtra(Constants.CASE_LIST, methods);
                 intent.setClass(context.getApplicationContext(), GalleryActivity.class);
                 context.startActivity(intent);
             }
@@ -161,18 +162,16 @@ public class MethodView extends BaseAdapter{
         });
 
 
-        methodView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-
-                Intent intent = new Intent();
-                intent.putExtra("shotString", shotfile.getAbsolutePath()).putExtra("testcase", methods.get(i)).putStringArrayListExtra("caselist", methods);
-                intent.setClass(context.getApplicationContext(), GalleryActivity.class);
-                context.startActivity(intent);
-
-                return false;
-            }
-        });
+//        methodView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                Intent intent = new Intent();
+//                intent.putExtra(Constants.SHOT, shotfile.getAbsolutePath()).putExtra(Constants.TESTCASE, methods.get(i)).putStringArrayListExtra(Constants.CASE_LIST, methods);
+//                intent.setClass(context.getApplicationContext(), GalleryActivity.class);
+//                context.startActivity(intent);
+//                return false;
+//            }
+//        });
 
 
         checkBox.setOnClickListener(new View.OnClickListener() {

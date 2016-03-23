@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#FFEFDB"
+    android:background="#969696"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             <!--android:layout_height="40dp"-->
             <!--android:id="@+id/check"/>-->
         <ImageView
-            android:background="#FFEFDB"
+
             android:id="@+id/check"
             android:src="@drawable/search3"
             android:layout_width="30dp"
