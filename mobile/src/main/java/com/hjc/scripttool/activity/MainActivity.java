@@ -37,10 +37,6 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
-        WifiTool wifi = new WifiTool(getApplicationContext());
-        wifi.closeWifi();
-        wifi.openWifi();
-
 
 //        File uitest = new File(getFilesDir().getPath() + "/uitest.zip");
 //        if(!uitest.exists()){
