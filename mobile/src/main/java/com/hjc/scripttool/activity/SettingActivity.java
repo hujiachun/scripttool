@@ -91,47 +91,17 @@ public class SettingActivity extends Activity{
            logpath.setText(preferences.getString(Settings.KEY_LOGCAT_PATH, ""));
        }
 
-
-//        this.wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         ssid = (EditText) findViewById(R.id.ssid);
         pwd = (EditText) findViewById(R.id.pwd);
 
         ssid.setText(preferences.getString(Settings.KEY_WIFI_SSID, Constants.WIFI_SSID));
         pwd.setText(preferences.getString(Settings.KEY_WIFI_PWD, Constants.WIFI_PWD));
-//        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-//        edit = sp.edit();
-//        final Intent intent = new Intent(getApplicationContext(), Wifi.class);
-//        sendBroadcast(intent);
-//        if(sp.getBoolean("switch", true)){
-//            edit.putBoolean("state", true);
-//            edit.commit();
-//            wifi_switch.setChecked(true);
-//            ssid.setText(sp.getString("ssid", ""));
-//            pwd.setText(sp.getString("pwd",""));
-//        }
-//        else {
-//            wifi_switch.setChecked(false);
-//            ssid.setText(sp.getString("ssid", ""));
-//            pwd.setText(sp.getString("pwd",""));
-//        }
-
 
         wifi_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
                 if (checked) {
-//                    if (!SettingActivity.this.wifi.getConnectionInfo().getSSID().toString().equals(ssid.getText().toString())) {
-//
-//                        SettingActivity.this.wifi.setWifiEnabled(false);
-//                    }
-//                    SettingActivity.this.wifi.setWifiEnabled(true);
-//                    edit.clear();
-//                    edit.putString("ssid", ssid.getText().toString());
-//                    edit.putString("pwd", pwd.getText().toString());
-//                    edit.putBoolean("state", true);
-//                    edit.putBoolean("switch", true);
-//                    edit.commit();
 
                     preferences.edit().putString(Settings.KEY_WIFI_SSID, ssid.getText().toString()).
                             putString(Settings.KEY_WIFI_PWD, pwd.getText().toString()).
@@ -140,15 +110,10 @@ public class SettingActivity extends Activity{
 
                 } else {
 
-//                    edit.putBoolean("state", false);
-//                    edit.putBoolean("switch", false);
-//                    edit.commit();
                     preferences.edit().putString(Settings.KEY_WIFI_SSID, ssid.getText().toString()).
                             putString(Settings.KEY_WIFI_PWD, pwd.getText().toString()).
                             putBoolean(Settings.KEY_WIFI_STATE, false).commit();
                     Toast.makeText(getApplicationContext(), "unbind", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
         });

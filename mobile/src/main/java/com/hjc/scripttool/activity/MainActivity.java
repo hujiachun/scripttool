@@ -42,23 +42,6 @@ public class MainActivity extends Activity{
         wifi.openWifi();
 
 
-//        final SharedPreferences.Editor edit;
-//        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-//        edit = sp.edit();
-//        WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-//        if(sp.getString("ssid", "") == ""){
-//            edit.putBoolean("state", true);
-//            wifi.setWifiEnabled(false);
-//            edit.putString("ssid", "MZtest");
-//            edit.putString("pwd", "Meizu@test123");
-//            edit.commit();
-//            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
-//        }
-//        else {
-//            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
-//        }
-
-
 //        File uitest = new File(getFilesDir().getPath() + "/uitest.zip");
 //        if(!uitest.exists()){
 //            try {

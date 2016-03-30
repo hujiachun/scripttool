@@ -28,10 +28,6 @@ public class Wifi extends BroadcastReceiver {
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-//        SharedPreferences sp = context.getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-//        String ssid = sp.getString("ssid", "");
-//        String pwd = sp.getString("pwd", "");
-//        boolean open = sp.getBoolean("state", true);
         preferences = Settings.getDefaultSharedPreferences(context);
         String ssid = preferences.getString(Settings.KEY_WIFI_SSID, Constants.WIFI_SSID);
         String pwd = preferences.getString(Settings.KEY_WIFI_PWD, Constants.WIFI_PWD);
