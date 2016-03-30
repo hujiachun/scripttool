@@ -42,5 +42,8 @@ public class Constants {
     public static final String TESTCASE = "testcase";
     public static final String SHOT = "shotString";
     public static final String BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
+    public static final String WIFI_PWD = "Meizu@test123";
+    public static final String WIFI_SSID = "MZtest";
+
 
 }

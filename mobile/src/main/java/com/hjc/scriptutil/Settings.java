@@ -18,6 +18,9 @@ public class Settings {
     public static final String KEY_PACKAGE = "package_name";
     public static final String KEY_CASE = "test_case";
     public static final String KEY_TIME = "time_str";
+    public static final String KEY_WIFI_SSID = "ssid";
+    public static final String KEY_WIFI_PWD = "pwd";
+    public static final String KEY_WIFI_STATE = "state";
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);

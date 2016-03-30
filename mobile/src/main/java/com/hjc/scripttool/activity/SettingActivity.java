@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,14 +32,18 @@ import com.hjc.service.PerformanceService;
 import com.hjc.util.Constants;
 import com.hjc.util.ShellUtils;
 import com.hjc.util.Util;
+import com.hjc.util.WifiTool;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -48,6 +53,8 @@ public class SettingActivity extends Activity{
     private EditText ssid, pwd;
     private TextView logpath, tvTime, packageName;
     private WifiManager wifi;
+    private WifiTool wifiTool;
+    private List<ScanResult> list;
     private int pid = 0;
     private ArrayList<String> ischecked_type;
     private Switch wifi_switch, logcat_switch, performance_switch, heap_switch;
@@ -77,6 +84,7 @@ public class SettingActivity extends Activity{
         performance_switch.setChecked(preferences.getBoolean(Settings.KEY_PERFORMANCE, false));
         logcat_switch.setChecked(preferences.getBoolean(Settings.KEY_LOGCAT_STATE, false));
         heap_switch.setChecked(preferences.getBoolean(Settings.KEY_HEAP_STATE, false));
+        wifi_switch.setChecked(preferences.getBoolean(Settings.KEY_WIFI_STATE, true));
 
 
         if (preferences.getBoolean(Settings.KEY_LOGCAT_STATE, false)){
@@ -84,25 +92,28 @@ public class SettingActivity extends Activity{
        }
 
 
-        this.wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        this.wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         ssid = (EditText) findViewById(R.id.ssid);
         pwd = (EditText) findViewById(R.id.pwd);
-        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-        edit = sp.edit();
-        final Intent intent = new Intent(getApplicationContext(), Wifi.class);
-        sendBroadcast(intent);
-        if(sp.getBoolean("switch", true)){
-            edit.putBoolean("state", true);
-            edit.commit();
-            wifi_switch.setChecked(true);
-            ssid.setText(sp.getString("ssid", ""));
-            pwd.setText(sp.getString("pwd",""));
-        }
-        else {
-            wifi_switch.setChecked(false);
-            ssid.setText(sp.getString("ssid", ""));
-            pwd.setText(sp.getString("pwd",""));
-        }
+
+        ssid.setText(preferences.getString(Settings.KEY_WIFI_SSID, Constants.WIFI_SSID));
+        pwd.setText(preferences.getString(Settings.KEY_WIFI_PWD, Constants.WIFI_PWD));
+//        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
+//        edit = sp.edit();
+//        final Intent intent = new Intent(getApplicationContext(), Wifi.class);
+//        sendBroadcast(intent);
+//        if(sp.getBoolean("switch", true)){
+//            edit.putBoolean("state", true);
+//            edit.commit();
+//            wifi_switch.setChecked(true);
+//            ssid.setText(sp.getString("ssid", ""));
+//            pwd.setText(sp.getString("pwd",""));
+//        }
+//        else {
+//            wifi_switch.setChecked(false);
+//            ssid.setText(sp.getString("ssid", ""));
+//            pwd.setText(sp.getString("pwd",""));
+//        }
 
 
         wifi_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -110,25 +121,34 @@ public class SettingActivity extends Activity{
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
                 if (checked) {
-                    if (!SettingActivity.this.wifi.getConnectionInfo().getSSID().toString().equals(ssid.getText().toString())) {
+//                    if (!SettingActivity.this.wifi.getConnectionInfo().getSSID().toString().equals(ssid.getText().toString())) {
+//
+//                        SettingActivity.this.wifi.setWifiEnabled(false);
+//                    }
+//                    SettingActivity.this.wifi.setWifiEnabled(true);
+//                    edit.clear();
+//                    edit.putString("ssid", ssid.getText().toString());
+//                    edit.putString("pwd", pwd.getText().toString());
+//                    edit.putBoolean("state", true);
+//                    edit.putBoolean("switch", true);
+//                    edit.commit();
 
-                        SettingActivity.this.wifi.setWifiEnabled(false);
-                    }
-                    SettingActivity.this.wifi.setWifiEnabled(true);
-                    edit.clear();
-                    edit.putString("ssid", ssid.getText().toString());
-                    edit.putString("pwd", pwd.getText().toString());
-                    edit.putBoolean("state", true);
-                    edit.putBoolean("switch", true);
-                    edit.commit();
+                    preferences.edit().putString(Settings.KEY_WIFI_SSID, ssid.getText().toString()).
+                            putString(Settings.KEY_WIFI_PWD, pwd.getText().toString()).
+                            putBoolean(Settings.KEY_WIFI_STATE, true).commit();
                     Toast.makeText(getApplicationContext(), "bind", Toast.LENGTH_SHORT).show();
 
                 } else {
-//                    edit.clear();
-                    edit.putBoolean("state", false);
-                    edit.putBoolean("switch", false);
-                    edit.commit();
+
+//                    edit.putBoolean("state", false);
+//                    edit.putBoolean("switch", false);
+//                    edit.commit();
+                    preferences.edit().putString(Settings.KEY_WIFI_SSID, ssid.getText().toString()).
+                            putString(Settings.KEY_WIFI_PWD, pwd.getText().toString()).
+                            putBoolean(Settings.KEY_WIFI_STATE, false).commit();
                     Toast.makeText(getApplicationContext(), "unbind", Toast.LENGTH_SHORT).show();
+
+
                 }
             }
         });
@@ -171,14 +191,13 @@ public class SettingActivity extends Activity{
             }
         });
 
-        timeBar.setProgress(Settings.getDefaultSharedPreferences(getApplicationContext()).getInt(Settings.KEY_INTERVAL, 5));
+        timeBar.setProgress(Settings.getDefaultSharedPreferences(getApplicationContext()).getInt(Settings.KEY_INTERVAL, 5) - 1);
         tvTime.setText(Settings.getDefaultSharedPreferences(getApplicationContext()).getInt(Settings.KEY_INTERVAL, 5) + "s");
 
         timeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
                 tvTime.setText(Integer.toString(arg1 + 1) + "s");
-
             }
 
             @Override
@@ -189,7 +208,6 @@ public class SettingActivity extends Activity{
             public void onStopTrackingTouch(SeekBar arg0) {
                 // when tracking stoped, update preferences
                 int interval = arg0.getProgress() + 1;
-                Log.e(Constants.TAG, interval + "");
                 preferences.edit().putInt(Settings.KEY_INTERVAL, interval).commit();
             }
         });
@@ -255,43 +273,27 @@ public class SettingActivity extends Activity{
         super.onStart();
     }
 
-    public void selectWifi(View v){
-        final String[] types = new String[]{"MZtest", "这个不能上网", "other"};
+    public void selectWifi(View v) {
+        wifiTool = new WifiTool(getApplicationContext());
+        wifiTool.openWifi();
+        list = wifiTool.getScanResults();
+        Set<String> ssidList = wifiTool.deleteSame(list);
+        final String[] types = ssidList.toArray(new String[0]);
         final AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
-        int i = 2;
-        switch(ssid.getText().toString()){
-            case "MZtest": i = 0;
-                break;
-
-            case "这个不能上网": i = 1;
-                break;
-
-        }
-         dialog = builder.setSingleChoiceItems(types, i, new DialogInterface.OnClickListener() {
+         dialog = builder.setSingleChoiceItems(types, types.length, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i){
-                    case 0:
-                        ssid.setText("MZtest");
-                        pwd.setText("Meizu@test123");
-                        wifi_switch.setChecked(false);
-                        wifi_switch.setChecked(true);
-                        break;
+                        ssid.setText(types[i]);
+                        if(types[i].equals(Constants.WIFI_SSID)){
+                            pwd.setText(Constants.WIFI_PWD);
+                            wifi_switch.setChecked(true);
+                        }
+                        else{
+                            pwd.setText("");
+                            wifi_switch.setChecked(false);
+                        }
 
-                    case 1:
-                        ssid.setText("这个不能上网");
-                        pwd.setText("123456789");
-                        wifi_switch.setChecked(false);
-                        wifi_switch.setChecked(true);
-                        break;
-
-                    case 2:
-                        ssid.setText("");
-                        pwd.setText("");
-                        wifi_switch.setChecked(false);
-                        break;
-                }
-                dialog.dismiss();
+                        dialog.dismiss();
             }
         }).show();
     }

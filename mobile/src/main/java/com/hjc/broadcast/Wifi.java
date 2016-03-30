@@ -11,6 +11,8 @@ import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.hjc.scriptutil.Settings;
+import com.hjc.util.Constants;
 import com.hjc.util.WifiAutoConnectManager;
 
 
@@ -19,21 +21,23 @@ import com.hjc.util.WifiAutoConnectManager;
  */
 public class Wifi extends BroadcastReceiver {
     WifiManager wifiManager;
-
+    private SharedPreferences preferences;
     @Override
     public void onReceive(Context context, Intent intent) {
 
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
-        SharedPreferences sp = context.getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-        String ssid = sp.getString("ssid", "");
-        String pwd = sp.getString("pwd", "");
-        boolean open = sp.getBoolean("state", true);
 
-
+//        SharedPreferences sp = context.getSharedPreferences("wifi", Activity.MODE_PRIVATE);
+//        String ssid = sp.getString("ssid", "");
+//        String pwd = sp.getString("pwd", "");
+//        boolean open = sp.getBoolean("state", true);
+        preferences = Settings.getDefaultSharedPreferences(context);
+        String ssid = preferences.getString(Settings.KEY_WIFI_SSID, Constants.WIFI_SSID);
+        String pwd = preferences.getString(Settings.KEY_WIFI_PWD, Constants.WIFI_PWD);
+        boolean open = preferences.getBoolean(Settings.KEY_WIFI_STATE, true);
         // 这个监听wifi的打开与关闭，与wifi的连接无关
-        if ((WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) &&
-                        open)
+        if ((WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) && open)
 
             switch (wifiState) {
             case WifiManager.WIFI_STATE_DISABLED:
@@ -48,7 +52,6 @@ public class Wifi extends BroadcastReceiver {
                 break;
 
             case WifiManager.WIFI_STATE_ENABLED:
-
 
                 break;
         }
@@ -79,9 +82,6 @@ public class Wifi extends BroadcastReceiver {
                 }
 
                 }
-
-
-
             }
         }
 

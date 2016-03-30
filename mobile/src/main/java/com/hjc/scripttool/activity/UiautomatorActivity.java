@@ -242,7 +242,6 @@ public class UiautomatorActivity extends Activity {
 });
 
 
-
         btn_history.setOnClickListener(new View.OnClickListener() {
             File file1 = new File(Constants.UIAUTOMATOR_PATH);
             String[] file1list = file1.list();

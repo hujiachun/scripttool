@@ -146,6 +146,10 @@ public class PerformanceService extends Service{
     }
 
 
+    /**
+     * 创建文件对象
+     * @param testcase
+     */
     private void createResultCsv(String testcase) {
         resultFilePath = Constants.PERFORMANCE_PATH + preferences.getString(Settings.KEY_PACKAGE, "").split(":")[0]
                 + "_" + preferences.getString(Settings.KEY_TIME, Constants.NA);

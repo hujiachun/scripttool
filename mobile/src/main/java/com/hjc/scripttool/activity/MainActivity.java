@@ -14,7 +14,10 @@ import android.view.View;
 import android.widget.Toast;
 import com.hjc.broadcast.Wifi;
 import com.hjc.scripttool.R;
+import com.hjc.scriptutil.Settings;
 import com.hjc.util.Constants;
+import com.hjc.util.WifiTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,21 +37,26 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
-        final SharedPreferences.Editor edit;
-        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
-        edit = sp.edit();
-        WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if(sp.getString("ssid", "") == ""){
-            edit.putBoolean("state", true);
-            wifi.setWifiEnabled(false);
-            edit.putString("ssid", "MZtest");
-            edit.putString("pwd", "Meizu@test123");
-            edit.commit();
-            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
-        }
-        else {
-            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
-        }
+        WifiTool wifi = new WifiTool(getApplicationContext());
+        wifi.closeWifi();
+        wifi.openWifi();
+
+
+//        final SharedPreferences.Editor edit;
+//        final SharedPreferences sp = getSharedPreferences("wifi", Activity.MODE_PRIVATE);
+//        edit = sp.edit();
+//        WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        if(sp.getString("ssid", "") == ""){
+//            edit.putBoolean("state", true);
+//            wifi.setWifiEnabled(false);
+//            edit.putString("ssid", "MZtest");
+//            edit.putString("pwd", "Meizu@test123");
+//            edit.commit();
+//            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
+//        }
+//        else {
+//            sendBroadcast(new Intent(getApplicationContext(), Wifi.class));
+//        }
 
 
 //        File uitest = new File(getFilesDir().getPath() + "/uitest.zip");

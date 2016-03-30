@@ -6,8 +6,6 @@
 
    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10" />
 
-
-
     <application
         android:sharedUserId="android.uid.system"
        android:allowBackup="true"
@@ -16,9 +14,6 @@
        android:supportsRtl="true"
        android:theme="@style/AppTheme">
        <uses-library android:name="android.test.runner" />
-
-
-
 
         <activity
             android:screenOrientation="portrait"

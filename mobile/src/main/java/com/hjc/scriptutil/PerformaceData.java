@@ -32,8 +32,8 @@ public class PerformaceData {
         this.dataList = Util.readCsv(path, context.getApplicationContext());//获取行数据
         memFloatList = new ArrayList();
         cpuDoubleList = new ArrayList();
-        for( String data : dataList){//得到内存
-            memFloatList.add(Float.parseFloat(data.split(",")[2]));
+        for( String data : dataList){
+            memFloatList.add(Float.parseFloat(data.split(",")[2]));//得到内存
             if(!data.contains(Constants.NA)){
                 cpuDoubleList.add(Double.parseDouble(data.split(",")[4].split(Constants.PCT)[0]));
             }
